@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.2/axios.js"></script>
+<body>
+<div id="app">
+    学生ID:<input value="1" name="stuId" v-model="stuId" id="stuId" > <button @click="send">发送请求</button>
+    <div>  {{info.stuName}}</div>
+    <table style="border-color: aqua;border-style: solid">
+        <tr  v-for="sc in info.scoreList"><td> {{sc.scoreId}}</td>  <td> {{sc.scName}}</td> <td> {{sc.score}}</td></tr>
+    </table>
+    <a href="FileUpLoad.html?stuId=1"  target="_blank">打开新页面</a>
+    </div>
+</body>
+</html>
+<script>
+    const instance = axios.create({
+        withCredentials: false
+    });
+    const app=new Vue({
+        el:"#app",
+        data:function(){
+            return{
+                info:{},
+                stuId:null
+
+            }
+        },
+        methods:{
+            send(){
+                let formData = new FormData();
+                const  stuId=this.stuId;
+                console.log(stuId);
+                formData.append('id',stuId);
+                let config = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                instance.post('http://127.0.0.1:8080/getStuInfo',formData,config).then(function(res){
+                    this.info=res.data;
+                });
+            }
+        }
+    })
+</script>

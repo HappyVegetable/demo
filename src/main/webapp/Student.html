@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.2/axios.js"></script>
+<body>
+<div id="app">
+
+
+<form method="post" id="scoreForm">
+    分数<input type="text" v-model="score" name="score">{{score}}
+    学生<input type="text" v-model="studentId" name="studentId">{{studentId}}
+    课程名称<input type="text" v-model="scName" name="scName">{{scName}}
+    <button @click="subForm">提交</button>
+</form>
+</div>
+<script>
+    const instance = axios.create({
+        withCredentials: false
+    });
+    var app=new Vue({
+        el:"#app",
+        data:{
+            score:null,
+            studentId:null,
+            scName:null
+        },
+        methods:{
+            subForm:function(){
+                let formData = new FormData();
+                formData.append('studentId', this.studentId);
+                formData.append('score', this.score);
+                formData.append('scName', this.scName);
+                let config = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                instance.post('http://127.0.0.1:8080/addStudentScore', formData,config).then(function (res) {
+                    if (res.data.item[0]=='1') {
+                        alert("数据提交成功")
+                    }else {
+                        alert("数据提交失败")
+                    }
+                })
+            }
+        }
+
+    })
+
+</script>
+
+</body>
+</html>

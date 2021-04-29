@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+<div id="app">
+    <p>数量{{peoples}}</p>
+    <button v-on:click="addmore">加一个</button>
+    <button v-on:click="less">减一个</button>
+</div>
+<div class="app2">
+    选择{{gender}}
+   <input type="radio" name="sex" value="男" v-model="gender" >男
+    <input type="radio" name="sex" value="女" v-model="gender">女
+
+</div>
+
+<div id="app3">
+    <beixi></beixi>
+    {{say}}
+    <select name="love" v-model="say">
+        <option value="我">我</option>
+        <option value="爱">爱</option>
+        <option value="你">你</option>
+    </select>
+</div>
+<script>
+    Vue.component("beixi",{
+        template:'<li>谭斯斯:</li>'
+    })
+    const app3=new Vue({
+        el:"#app3",
+        data:{
+            say:''
+        }
+    })
+    const app2 = new Vue({
+        el: ".app2",
+        data: {
+            gender:''
+        },
+    })
+    const app = new Vue({
+        el: "#app",
+        data: {
+            peoples: 100
+        },
+        methods: {
+            less: function () {
+                this.peoples-=1;
+            },
+            addmore: function () {
+                this.peoples+=1;
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

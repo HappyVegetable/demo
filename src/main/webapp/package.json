@@ -1,0 +1,25 @@
+[{
+  "name": "贝西说",
+  "url": "https://blog.csdn.net/beixishuo",
+  "page": 1,
+  "isNonProfit": true,
+  "address": {
+    "street": "太谷",
+    "city": "山西晋中",
+    "country": "中国"
+  },
+  "links": [
+    {
+      "name": "bilibili",
+      "url": "https://space.bilibili.com/474668932"
+    },
+    {
+      "name": "贝西说",
+      "url": "https://blog.csdn.net/beixishuo"
+    },
+    {
+      "name": "百度",
+      "url": "https://www.baidu.com/"
+    }
+  ]
+}]

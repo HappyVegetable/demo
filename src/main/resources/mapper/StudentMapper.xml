@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.StudentDao">
+
+    <resultMap id="student" type="com.example.demo.entity.Student">
+        <id  column="stu_Id" property="stuId"></id>
+        <result column="stu_Name" property="stuName" ></result>
+        <collection  property="scoreList" ofType="com.example.demo.entity.Score" >
+            <id property="scoreId" column="score_Id"></id>
+            <result property="scName" column="sc_Name"></result>
+            <result property="studentId" column="student_Id"></result>
+            <result property="score" column="sc_Score"></result>
+        </collection>
+    </resultMap>
+    <resultMap id="score" type="com.example.demo.entity.Score">
+        <id property="scoreId" column="score_Id"></id>
+        <result property="scName" column="sc_Name"></result>
+        <result property="studentId" column="student_Id"></result>
+        <result property="score" column="sc_Score"></result>
+    </resultMap>
+
+    <select id="getInfo" parameterType="int" resultMap="student"  >
+        SELECT * from student s INNER join score sc on s.stu_Id=sc.student_Id  where s.stu_Id=#{stuId}
+    </select>
+    <select id="getAllStudents" resultMap="student">
+        select * from (SELECT * from student s1 limit 0,3) s left join score sc on s.stu_Id=sc.student_Id  ;
+    </select>
+    <insert id="addStudentScore"  parameterType="score" useGeneratedKeys="true" keyProperty="scoreId" >
+        INSERT  INTO score(student_Id,sc_Score,sc_Name) VALUEs (#{studentId},#{score},#{scName})
+    </insert>
+</mapper>

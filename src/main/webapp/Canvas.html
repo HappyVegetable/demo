@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<body>
+<img id="mainImg"  src="img/main.png"  >
+
+<!--
+<canvas id="mainCanvas" width="600px" height="300px" style="border:1px solid #c3c3c3;"></canvas>
+-->
+
+</body>
+
+
+</html>
+<script>
+    (function(){
+        var designW = 1920;  //设计稿宽
+        var font_rate = 1080;
+        //适配
+        document.getElementsByTagName("html")[0].style.fontSize = document.body.offsetWidth / designW * font_rate + "px";
+        document.getElementsByTagName("body")[0].style.fontSize = document.body.offsetWidth / designW * font_rate + "px";
+
+        //监测窗口大小变化
+        window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function() {
+            document.getElementsByTagName("html")[0].style.fontSize = document.body.offsetWidth / designW * font_rate + "px";
+            document.getElementsByTagName("body")[0].style.fontSize = document.body.offsetWidth / designW * font_rate + "px";
+        }, false);
+    })();
+</script>
+<script type="text/javascript">
+/*
+    var c=document.getElementById("mainCanvas");
+    var ctx=c.getContext("2d");
+    var mainImg=document.getElementById("mainImg");
+    mainImg.onload = function()
+    {
+        ctx.drawImage(mainImg,10,10);
+    }*/
+
+</script>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="js/Vue.js"></script>
+<body>
+<div id="shabi">
+    <input type="text" v-model="message" />
+    {{message}}
+</div>
+<div class="app1">
+    <a v-bind:href="touchsrc">点击链接</a>
+    <label v-for="count in 5">循环次数：{{count}}</label>
+</div>
+<div id="app2">
+    <table>
+
+        <tr v-for="(item,index) in listarray" v-if="index%2 != 1" style="background-color:yellow" ><td>索引{{index}}</td><td>{{item}}</td></tr>
+        <tr v-else-if="index%5 == 0" style="background-color:green"><td >索引{{index}}</td><td>{{item}}</td></tr>
+        <tr v-else style="background-color:red"><td >索引{{index}}</td><td>{{item}}</td></tr>
+    </table>
+    <table>
+
+        <tr v-for="user in usermap" ><td>索引{{user.id}}</td><td>{{user.name}}</td></tr>
+    </table>
+</div>
+
+<script>
+    const dashabi=new Vue({
+       el:".app1",
+        data:{
+            touchsrc:"https://www.baidu.com"
+
+        }
+    });
+    const vues =new Vue({
+        el:"#shabi",
+        data:{
+            message:"hello,shabi"
+        }
+    });
+    const app2=new Vue({
+       el:"#app2",
+        data:{
+            listarray:[1,2,3,4,5,6,7,8,9,10,11],
+            usermap:[{id:1,name:'你好'},
+                {id:2,name:'不好'},
+                {id:3,name:'很好'}
+            ]
+        }
+    });
+
+</script>
+</body>
+</html>

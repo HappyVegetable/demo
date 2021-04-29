@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-model="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.2/axios.js"></script>
+<body>
+<form id="app">
+
+    <input type="text" v-model="stuId" @change="inputStuId" >{{stuId}}
+    <input type="file" name="filepath" @change="changeFile" value="上传...">
+    <button v-on:click="subFile">请选择上传的文件</button>
+
+</form>
+
+<script>
+
+    const instance = axios.create({
+        withCredentials: false
+    });
+    const app = new Vue({
+
+        el: "#app",
+        data: {
+            file: null,
+            stuId: null
+        },
+
+        methods: {
+            inputStuId:function(e){
+                this.stuId= e.target.valueOf();
+            },
+            subFile: function (e) {
+                e.preventDefault();
+                let formData = new FormData();
+                formData.append('stuId', this.stuId);
+                formData.append('file', this.file);
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+                instance.post('http://127.0.0.1:8080/uploadFile', formData, config).then(function (res) {
+                    if (res.status === 200) {
+
+                    }
+                })
+
+            },
+            changeFile: function (e) {
+                this.file = e.target.files[0]
+                console.log(this.file);
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

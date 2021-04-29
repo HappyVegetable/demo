@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="js/Axios.js"></script>
+<script src="js/Vue.js"></script>
+
+
+<body>
+<div id="app">
+    <div>{{info.name}}</div>
+    <div>{{info.address}}</div>
+    <a v-bind:href="info.url">aaa</a>
+    <table>
+        <tr v-for="temp in info.links"><td><a v-bind:href="temp.url">{{temp.name}}</a></td></tr>
+    </table>
+</div>
+<script>
+    var app=new Vue({
+        el:"#app",
+        data:function(){
+            return{
+                info:{
+                    name:null,
+                    url:null,
+                    address:{
+                        street:null,
+                        city:null,
+                        country:null,
+                    },
+                    links:null
+
+                },
+
+            }
+        },
+
+        mounted:function(){
+            axios.get('package.json').then(resp=>(this.info=resp.data[0]));
+        }
+    })
+</script>
+</body>
+</html>

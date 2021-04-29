@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="js/Vue.js"></script>
+<body>
+<div id="app"></div>
+</body>
+<script>
+    const app=new Vue({
+        el:"#app",
+        methods: {
+            onConfirm () {
+                //需要传输的数据
+                let data = {
+                    code: 1,
+                    item: '123' }
+                this.websocketsend(JSON.stringify(data))
+            },
+            /*
+             */
+            initWebSocket () { // 初始化weosocket
+
+                this.websock = new WebSocket('ws://localhost:8080/websocket/')
+                this.websock.onmessage = this.websocketonmessage
+                this.websock.onerror = this.websocketonerror
+                this.websock.onopen = this.websocketonopen
+                this.websock.onclose = this.websocketclose
+            },
+            websocketonopen () { // 连接建立之后执行send方法发送数据
+                let data = {
+                    code: 0,
+                    msg: '这是client：初次连接'
+                }
+                this.websocketsend(JSON.stringify(data))
+            },
+            websocketonerror () {
+                console.log( 'WebSocket连接失败')
+            },
+            websocketonmessage (e) { // 数据接收
+                console.log('数据接收' + e.data)
+            },
+            websocketsend (Data) { // 数据发送
+                this.websock.send(Data)
+            },
+            websocketclose (e) {  // 关闭
+                console.log('已关闭连接', e)
+            }
+        },
+        created () {
+            console.log('created')
+            this.initWebSocket()
+        },
+        data () {
+            return {
+                websocket: null
+            }
+        },
+        destroyed () {
+            this.websock.close() // 离开路由之后断开websocket连接
+        }
+
+
+    })
+
+
+
+
+</script>
+</html>
